@@ -135,8 +135,12 @@ export default function Home() {
                   color: '#1a1a1a'
                 }}>
                   Discover{" "}
-                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent" style={{
-                    textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+                  <span style={{
+                    background: 'linear-gradient(135deg, hsl(159, 84%, 37%), hsl(217, 91%, 60%))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.8)',
+                    fontWeight: '900'
                   }}>
                     Healthy Meals
                   </span>
@@ -234,27 +238,48 @@ export default function Home() {
               <Card className="rounded-3xl p-6 shadow-2xl border border-border max-w-sm mx-auto animate-float">
                 <CardContent className="space-y-4 p-0">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-semibold">Daily Goals</h3>
-                    <span className="text-sm text-muted-foreground">85% complete</span>
+                    <h3 className="font-bold" style={{ 
+                      textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                      color: '#1a1a1a'
+                    }}>Daily Goals</h3>
+                    <span className="text-sm font-semibold" style={{ 
+                      textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
+                      color: '#2a2a2a'
+                    }}>85% complete</span>
                   </div>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm">Calories</span>
-                      <span className="text-sm font-medium">1,680 / 2,000</span>
+                      <span className="text-sm font-medium" style={{ 
+                        textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
+                        color: '#1a1a1a'
+                      }}>Calories</span>
+                      <span className="text-sm font-bold" style={{ 
+                        textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                        color: '#1a1a1a'
+                      }}>1,680 / 2,000</span>
                     </div>
                     <div className="w-full bg-muted rounded-full h-2">
                       <div className="bg-primary h-2 rounded-full transition-all duration-1000" style={{ width: "84%" }}></div>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm">Protein</span>
-                      <span className="text-sm font-medium">98g / 120g</span>
+                      <span className="text-sm font-medium" style={{ 
+                        textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
+                        color: '#1a1a1a'
+                      }}>Protein</span>
+                      <span className="text-sm font-bold" style={{ 
+                        textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                        color: '#1a1a1a'
+                      }}>98g / 120g</span>
                     </div>
                     <div className="w-full bg-muted rounded-full h-2">
                       <div className="bg-secondary h-2 rounded-full transition-all duration-1000 delay-300" style={{ width: "82%" }}></div>
                     </div>
                   </div>
                   <div className="border-t border-border pt-4">
-                    <p className="text-sm text-muted-foreground flex items-center">
+                    <p className="text-sm font-semibold flex items-center" style={{ 
+                      textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                      color: '#1a1a1a'
+                    }}>
                       <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
                       3 healthy options within 0.5 miles
                     </p>
