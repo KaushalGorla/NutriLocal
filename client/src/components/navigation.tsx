@@ -15,7 +15,6 @@ export default function Navigation() {
   const navItems = [
     { path: "/", label: "Home" },
     { path: "/discover", label: "Discover" },
-    { path: "/map", label: "Map" },
     { path: "/impact", label: "Impact" },
     { path: "/ai-meals", label: "AI Meals" },
   ];
