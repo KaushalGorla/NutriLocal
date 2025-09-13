@@ -57,13 +57,9 @@ export default function Home() {
                       fontWeight: '900',
                       fontSize: '1.4em',
                       color: '#22c55e',
-                      textShadow: '3px 3px 6px rgba(0,0,0,0.7), 0 0 25px rgba(34, 197, 94, 0.8), 2px 2px 0px rgba(255,255,255,0.5)',
+                      textShadow: '4px 4px 8px rgba(0,0,0,0.8), 0 0 30px rgba(34, 197, 94, 0.9), 3px 3px 0px rgba(255,255,255,0.8), -1px -1px 0px rgba(0,0,0,0.5)',
                       display: 'inline-block',
                       padding: '6px 16px',
-                      backgroundColor: 'rgba(255,255,255,0.95)',
-                      borderRadius: '12px',
-                      border: '3px solid #22c55e',
-                      boxShadow: '0 0 30px rgba(34, 197, 94, 0.6), inset 0 0 20px rgba(34, 197, 94, 0.1)',
                       letterSpacing: '1px'
                     }}
                   >
