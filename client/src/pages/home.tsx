@@ -13,6 +13,7 @@ import { api } from "@/lib/api";
 import { Sparkles, ArrowRight, Menu } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import heroBackgroundImage from "@assets/generated_images/People_enjoying_healthy_food_together_d27e89e1.png";
+import Nutrition3DScene from "@/components/3d/nutrition-3d-scene";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -232,59 +233,14 @@ export default function Home() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {/* Mockup phone showing app interface */}
-              <Card className="rounded-3xl p-8 shadow-2xl max-w-sm mx-auto animate-float" style={{
+              {/* 3D Nutrition Visualization */}
+              <Card className="rounded-3xl p-4 shadow-2xl max-w-lg mx-auto animate-float" style={{
                 border: '3px solid #1a1a1a',
-                borderRadius: '24px'
+                borderRadius: '24px',
+                height: '400px'
               }}>
-                <CardContent className="space-y-6 p-0">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-2xl font-bold" style={{ 
-                      textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-                      color: '#1a1a1a'
-                    }}>Daily Goals</h3>
-                    <span className="text-lg font-semibold" style={{ 
-                      textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
-                      color: '#2a2a2a'
-                    }}>85% complete</span>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg font-medium" style={{ 
-                        textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
-                        color: '#1a1a1a'
-                      }}>Calories</span>
-                      <span className="text-lg font-bold" style={{ 
-                        textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-                        color: '#1a1a1a'
-                      }}>1,680 / 2,000</span>
-                    </div>
-                    <div className="w-full bg-muted rounded-full h-3">
-                      <div className="bg-primary h-3 rounded-full transition-all duration-1000" style={{ width: "84%" }}></div>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg font-medium" style={{ 
-                        textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
-                        color: '#1a1a1a'
-                      }}>Protein</span>
-                      <span className="text-lg font-bold" style={{ 
-                        textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-                        color: '#1a1a1a'
-                      }}>98g / 120g</span>
-                    </div>
-                    <div className="w-full bg-muted rounded-full h-3">
-                      <div className="bg-secondary h-3 rounded-full transition-all duration-1000 delay-300" style={{ width: "82%" }}></div>
-                    </div>
-                  </div>
-                  <div className="border-t-2 border-gray-300 pt-6">
-                    <p className="text-lg font-semibold flex items-center" style={{ 
-                      textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-                      color: '#1a1a1a'
-                    }}>
-                      <span className="w-3 h-3 bg-primary rounded-full mr-3"></span>
-                      3 healthy options within 0.5 miles
-                    </p>
-                  </div>
+                <CardContent className="p-0 h-full">
+                  <Nutrition3DScene />
                 </CardContent>
               </Card>
             </motion.div>
