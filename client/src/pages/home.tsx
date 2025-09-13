@@ -19,7 +19,7 @@ export default function Home() {
         }}
       >
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="flex justify-center items-center">
             <motion.div
               className="space-y-8"
               initial={{ opacity: 0, x: -50 }}
@@ -30,7 +30,8 @@ export default function Home() {
                 <h2 className="text-4xl lg:text-6xl font-bold leading-tight text-balance text-foreground text-center lg:text-left" style={{ 
                   textShadow: '1px 1px 3px rgba(0,0,0,0.2)'
                 }}>
-                  Discover{" "}
+                  Discover
+                  <br />
                   <motion.span 
                     className="font-black relative inline-block"
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -74,7 +75,8 @@ export default function Home() {
                     }}
                   >
                     Healthy Meals
-                  </motion.span>{" "}
+                  </motion.span>
+                  <br />
                   From Local Restaurants
                 </h2>
                 <p className="text-xl font-medium mt-6 leading-relaxed text-muted-foreground" style={{ 
@@ -159,19 +161,6 @@ export default function Home() {
               </div>
             </motion.div>
 
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              {/* Health & Nutrition Visual */}
-              <div className="max-w-lg mx-auto text-center">
-                <div className="text-6xl mb-4">🥗</div>
-                <h3 className="text-2xl font-bold mb-2">Discover Healthy Options</h3>
-                <p className="text-muted-foreground">Find nutritious meals from local restaurants that match your health goals and budget.</p>
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
