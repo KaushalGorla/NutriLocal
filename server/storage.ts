@@ -275,7 +275,7 @@ export class MemStorage implements IStorage {
       carbLimit: insertProfile.carbLimit ?? null,
       fatTarget: insertProfile.fatTarget ?? null,
       monthlyBudget: insertProfile.monthlyBudget ?? null,
-      dietaryRestrictions: Array.isArray(insertProfile.dietaryRestrictions) ? insertProfile.dietaryRestrictions : null
+      dietaryRestrictions: Array.isArray(insertProfile.dietaryRestrictions) ? [...insertProfile.dietaryRestrictions] as string[] : null
     };
     this.userProfiles.set(id, profile);
     return profile;
@@ -291,7 +291,7 @@ export class MemStorage implements IStorage {
       carbLimit: updates.carbLimit ?? existing.carbLimit,
       fatTarget: updates.fatTarget ?? existing.fatTarget,
       monthlyBudget: updates.monthlyBudget ?? existing.monthlyBudget,
-      dietaryRestrictions: Array.isArray(updates.dietaryRestrictions) ? updates.dietaryRestrictions : existing.dietaryRestrictions
+      dietaryRestrictions: Array.isArray(updates.dietaryRestrictions) ? [...updates.dietaryRestrictions] as string[] : existing.dietaryRestrictions
     };
     this.userProfiles.set(existing.id, updated);
     return updated;
@@ -394,7 +394,7 @@ export class MemStorage implements IStorage {
     const recommendation: UserRecommendation = { 
       ...insertRecommendation, 
       id,
-      reasonTags: Array.isArray(insertRecommendation.reasonTags) ? insertRecommendation.reasonTags : null
+      reasonTags: Array.isArray(insertRecommendation.reasonTags) ? [...insertRecommendation.reasonTags] as string[] : null
     };
     this.userRecommendations.set(id, recommendation);
     return recommendation;
