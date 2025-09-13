@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import ProfileSetupForm from "@/components/profile-setup-form";
 import { useToast } from "@/hooks/use-toast";
-import { CalendarDays, Clock, DollarSign, Target, Utensils } from "lucide-react";
+import { CalendarDays, Clock, DollarSign, Target, Utensils, Loader2, ChefHat, MapPin } from "lucide-react";
 
 interface Meal {
   type: 'breakfast' | 'lunch' | 'dinner';
@@ -148,6 +148,72 @@ export default function Discover() {
         <section className="py-12 bg-muted/30">
           <div className="container mx-auto px-4 lg:px-8">
             <ProfileSetupForm onSuccess={handleProfileSuccess} />
+          </div>
+        </section>
+      )}
+
+      {/* Loading Screen */}
+      {isGeneratingPlan && (
+        <section className="py-20">
+          <div className="container mx-auto px-4 lg:px-8">
+            <div className="max-w-2xl mx-auto text-center">
+              <div className="space-y-8">
+                {/* Animated Icons */}
+                <div className="flex justify-center space-x-4">
+                  <div className="animate-pulse">
+                    <ChefHat className="w-12 h-12 text-primary animate-bounce" style={{ animationDelay: '0ms' }} />
+                  </div>
+                  <div className="animate-pulse">
+                    <MapPin className="w-12 h-12 text-secondary animate-bounce" style={{ animationDelay: '200ms' }} />
+                  </div>
+                  <div className="animate-pulse">
+                    <Utensils className="w-12 h-12 text-accent animate-bounce" style={{ animationDelay: '400ms' }} />
+                  </div>
+                </div>
+
+                {/* Main Loading Spinner */}
+                <div className="flex justify-center">
+                  <Loader2 className="w-16 h-16 text-primary animate-spin" />
+                </div>
+
+                {/* Loading Text */}
+                <div className="space-y-4">
+                  <h2 className="text-3xl font-bold text-foreground">
+                    Creating Your Perfect Meal Plan
+                  </h2>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-center space-x-2 text-lg text-muted-foreground">
+                      <Clock className="w-5 h-5" />
+                      <span>Analyzing your nutrition goals...</span>
+                    </div>
+                    <div className="flex items-center justify-center space-x-2 text-lg text-muted-foreground">
+                      <MapPin className="w-5 h-5" />
+                      <span>Finding nearby healthy restaurants...</span>
+                    </div>
+                    <div className="flex items-center justify-center space-x-2 text-lg text-muted-foreground">
+                      <ChefHat className="w-5 h-5" />
+                      <span>Crafting your 7-day meal plan...</span>
+                    </div>
+                  </div>
+
+                  {/* Progress Bar */}
+                  <div className="w-full max-w-md mx-auto mt-6">
+                    <div className="w-full bg-muted rounded-full h-2">
+                      <div 
+                        className="bg-gradient-to-r from-primary to-accent h-2 rounded-full animate-pulse"
+                        style={{ 
+                          width: '75%',
+                          animation: 'pulse 2s ease-in-out infinite'
+                        }}
+                      ></div>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      This usually takes 10-15 seconds...
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       )}
