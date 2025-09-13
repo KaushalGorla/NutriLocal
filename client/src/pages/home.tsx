@@ -135,12 +135,10 @@ export default function Home() {
                   color: '#1a1a1a'
                 }}>
                   Discover{" "}
-                  <span style={{
-                    background: 'linear-gradient(135deg, hsl(159, 84%, 37%), hsl(217, 91%, 60%))',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.8)',
-                    fontWeight: '900'
+                  <span className="animated-gradient-text" style={{
+                    fontWeight: '900',
+                    fontSize: '1.1em',
+                    textShadow: '2px 2px 6px rgba(0,0,0,0.5), 0 0 15px rgba(255,255,255,0.9)'
                   }}>
                     Healthy Meals
                   </span>
