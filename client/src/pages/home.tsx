@@ -74,8 +74,7 @@ export default function Home() {
                     }}
                   >
                     Healthy Meals
-                  </motion.span>
-                  <br />
+                  </motion.span>{" "}
                   From Local Restaurants
                 </h2>
                 <p className="text-xl font-medium mt-6 leading-relaxed text-muted-foreground" style={{ 
