@@ -59,11 +59,7 @@ export default function Home() {
                       color: '#22c55e',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 15px rgba(34, 197, 94, 0.7)',
                       display: 'inline-block',
-                      padding: '4px 12px',
-                      borderRadius: '12px',
-                      backgroundColor: 'rgba(255,255,255,0.9)',
-                      border: '2px solid rgba(34, 197, 94, 0.3)',
-                      boxShadow: '0 0 25px rgba(34, 197, 94, 0.4), inset 0 0 15px rgba(34, 197, 94, 0.1)'
+                      padding: '4px 12px'
                     }}
                   >
                     Healthy Meals
