@@ -52,21 +52,21 @@ export default function LiveMap() {
     }
 
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      async (position) => {
         clearTimeout(fallbackTimer);
         const { latitude, longitude } = position.coords;
         console.log('Got user location:', latitude, longitude);
         setUserLocation({ lat: latitude, lng: longitude });
-        searchNearbyRestaurants(latitude, longitude);
+        await searchNearbyRestaurants(latitude, longitude);
         setIsLoading(false);
       },
-      (error) => {
+      async (error) => {
         clearTimeout(fallbackTimer);
         console.log('Geolocation error, using fallback:', error.message);
         // Always use fallback instead of showing error
         const fallbackLocation = { lat: 37.7749, lng: -122.4194 };
         setUserLocation(fallbackLocation);
-        searchNearbyRestaurants(fallbackLocation.lat, fallbackLocation.lng);
+        await searchNearbyRestaurants(fallbackLocation.lat, fallbackLocation.lng);
         setIsLoading(false);
       },
       {
@@ -77,66 +77,85 @@ export default function LiveMap() {
     );
   };
 
-  // Search for nearby restaurants (mock implementation)
-  const searchNearbyRestaurants = (lat: number, lng: number) => {
-    console.log('Searching for nearby restaurants at:', lat, lng);
+  // Search for nearby restaurants using AI-powered recommendations
+  const searchNearbyRestaurants = async (lat: number, lng: number) => {
+    console.log('Searching for AI-powered restaurant recommendations at:', lat, lng);
     
-    // Mock data for nearby restaurants and food trucks
-    const mockRestaurants: Restaurant[] = [
-      {
-        id: '1',
-        name: 'Green Bowl Co.',
-        type: 'restaurant',
-        cuisine: 'Healthy Bowls',
-        rating: 4.8,
-        lat: lat + 0.001,
-        lng: lng + 0.001,
-        distance: 0.1
-      },
-      {
-        id: '2',
-        name: 'Sunshine Food Truck',
-        type: 'food_truck',
-        cuisine: 'Organic Wraps',
-        rating: 4.6,
-        lat: lat - 0.002,
-        lng: lng + 0.002,
-        distance: 0.2
-      },
-      {
-        id: '3',
-        name: 'Fresh Start Cafe',
-        type: 'restaurant',
-        cuisine: 'Vegan',
-        rating: 4.7,
-        lat: lat + 0.003,
-        lng: lng - 0.001,
-        distance: 0.3
-      },
-      {
-        id: '4',
-        name: 'Protein Power Truck',
-        type: 'food_truck',
-        cuisine: 'High Protein',
-        rating: 4.5,
-        lat: lat - 0.001,
-        lng: lng - 0.003,
-        distance: 0.4
-      },
-      {
-        id: '5',
-        name: 'Local Harvest Kitchen',
-        type: 'restaurant',
-        cuisine: 'Farm-to-Table',
-        rating: 4.9,
-        lat: lat + 0.002,
-        lng: lng + 0.003,
-        distance: 0.5
+    try {
+      // Fetch AI-powered restaurant recommendations based on location
+      const response = await fetch(`/api/restaurants?lat=${lat}&lng=${lng}&userId=temp-user-id`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch restaurant recommendations');
       }
-    ];
-
-    console.log('Found nearby restaurants:', mockRestaurants.length);
-    setNearbyRestaurants(mockRestaurants);
+      
+      const aiRestaurants = await response.json();
+      
+      // Convert AI restaurant data to match our Restaurant interface
+      const formattedRestaurants: Restaurant[] = aiRestaurants.map((restaurant: any) => ({
+        id: restaurant.id,
+        name: restaurant.name,
+        type: restaurant.type,
+        cuisine: restaurant.cuisine,
+        rating: restaurant.rating,
+        lat: restaurant.lat,
+        lng: restaurant.lng,
+        distance: restaurant.distance
+      }));
+      
+      console.log('Received AI restaurant recommendations:', formattedRestaurants);
+      setNearbyRestaurants(formattedRestaurants);
+      
+    } catch (error) {
+      console.error('Error fetching AI restaurant recommendations:', error);
+      
+      // Fallback to mock data if AI recommendations fail
+      const fallbackRestaurants: Restaurant[] = [
+        {
+          id: '1',
+          name: 'Green Bowl Co.',
+          type: 'restaurant',
+          cuisine: 'Healthy Bowls',
+          rating: 4.8,
+          lat: lat + 0.001,
+          lng: lng + 0.001,
+          distance: 0.1
+        },
+        {
+          id: '2',
+          name: 'Sunshine Food Truck',
+          type: 'food_truck',
+          cuisine: 'Organic Wraps',
+          rating: 4.6,
+          lat: lat - 0.002,
+          lng: lng + 0.002,
+          distance: 0.2
+        },
+        {
+          id: '3',
+          name: 'Fresh Start Cafe',
+          type: 'restaurant',
+          cuisine: 'Plant-Based',
+          rating: 4.7,
+          lat: lat + 0.003,
+          lng: lng - 0.001,
+          distance: 0.3
+        },
+        {
+          id: '4',
+          name: 'Protein Power Truck',
+          type: 'food_truck',
+          cuisine: 'High Protein',
+          rating: 4.5,
+          lat: lat - 0.001,
+          lng: lng - 0.003,
+          distance: 0.4
+        }
+      ];
+      
+      console.log('Using fallback restaurants:', fallbackRestaurants.length);
+      setNearbyRestaurants(fallbackRestaurants);
+    }
   };
 
   // Initialize map on component mount

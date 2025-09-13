@@ -5,7 +5,7 @@ import multer from "multer";
 import { storage } from "./storage";
 import { insertUserProfileSchema } from "@shared/schema";
 import { z } from "zod";
-import { analyzeDocumentAndGetRecommendations, extractTextFromPDF } from "./gemini-service";
+import { analyzeDocumentAndGetRecommendations, extractTextFromPDF, generatePersonalizedRecommendations, generateRestaurantRecommendations } from "./gemini-service";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Add centralized error handler for better error responses
@@ -76,11 +76,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Restaurant routes
+  // AI-enhanced restaurant routes
   app.get("/api/restaurants", async (req, res) => {
     try {
-      const restaurants = await storage.getRestaurants();
-      res.json(restaurants);
+      const { lat, lng, userId } = req.query;
+      
+      // If location coordinates are provided, use AI to generate location-based recommendations
+      if (lat && lng) {
+        let userPreferences;
+        
+        // If userId is provided, get their preferences for personalized recommendations
+        if (userId) {
+          try {
+            const userProfile = await storage.getUserProfile(userId as string);
+            if (userProfile) {
+              userPreferences = {
+                dietaryGoals: `${userProfile.dailyCalories} calories daily`,
+                restrictions: userProfile.dietaryRestrictions ? userProfile.dietaryRestrictions.join(', ') : '',
+                budget: userProfile.maxMealPrice || 'moderate',
+                cuisinePreference: 'healthy options'
+              };
+            }
+          } catch (profileError) {
+            console.log("Could not fetch user profile, using basic location recommendations");
+          }
+        }
+        
+        // Generate AI-powered restaurant recommendations based on location and preferences
+        const aiRestaurants = await generateRestaurantRecommendations(
+          { lat: parseFloat(lat as string), lng: parseFloat(lng as string) },
+          userPreferences
+        );
+        
+        res.json(aiRestaurants);
+      } else {
+        // Fallback to stored restaurants if no location provided
+        const restaurants = await storage.getRestaurants();
+        res.json(restaurants);
+      }
     } catch (error) {
       console.error("Error fetching restaurants:", error);
       res.status(500).json({ error: "Internal server error" });
@@ -131,14 +164,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Recommendation routes
+  // AI-powered recommendation routes
   app.get("/api/recommendations/:userId", async (req, res) => {
     try {
       const { userId } = req.params;
-      const recommendations = await storage.getUserRecommendations(userId);
+      
+      // Get user profile to generate AI recommendations
+      const userProfile = await storage.getUserProfile(userId);
+      
+      if (!userProfile) {
+        // If no profile exists, return empty recommendations
+        return res.json([]);
+      }
+      
+      // Generate AI-powered recommendations based on user profile
+      const recommendations = await generatePersonalizedRecommendations({
+        dietaryGoals: `${userProfile.dailyCalories} calories daily`, // Convert from numeric goals
+        restrictions: userProfile.dietaryRestrictions ? userProfile.dietaryRestrictions.join(', ') : '',
+        budget: userProfile.maxMealPrice || 'moderate',
+        cuisinePreference: 'healthy options', // Default since not in schema
+        activityLevel: 'moderate', // Default since not in schema
+        healthConditions: '' // Default since not in schema
+      });
+      
       res.json(recommendations);
     } catch (error) {
-      console.error("Error fetching recommendations:", error);
+      console.error("Error fetching AI recommendations:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -146,10 +197,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/recommendations/:userId/generate", async (req, res) => {
     try {
       const { userId } = req.params;
-      const recommendations = await storage.generateRecommendations(userId);
+      
+      // Get user profile for AI generation
+      const userProfile = await storage.getUserProfile(userId);
+      
+      if (!userProfile) {
+        return res.status(404).json({ error: "User profile not found" });
+      }
+      
+      // Generate new AI recommendations
+      const recommendations = await generatePersonalizedRecommendations({
+        dietaryGoals: `${userProfile.dailyCalories} calories daily`,
+        restrictions: userProfile.dietaryRestrictions ? userProfile.dietaryRestrictions.join(', ') : '',
+        budget: userProfile.maxMealPrice || 'moderate',
+        cuisinePreference: 'healthy options',
+        activityLevel: 'moderate',
+        healthConditions: ''
+      });
+      
       res.json(recommendations);
     } catch (error) {
-      console.error("Error generating recommendations:", error);
+      console.error("Error generating AI recommendations:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -218,7 +286,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     cuisinePreference: z.string().optional().default("")
   });
 
-  app.post("/api/ai-meal-recommendations", upload.single('document'), handleMulterError, async (req, res) => {
+  app.post("/api/ai-meal-recommendations", upload.single('document'), handleMulterError, async (req: Request, res: Response) => {
     try {
       // Validate file upload
       if (!req.file) {
