@@ -150,6 +150,86 @@ export default function LiveMap() {
           lat: lat - 0.001,
           lng: lng - 0.003,
           distance: 0.4
+        },
+        {
+          id: '5',
+          name: 'Mediterranean Delight',
+          type: 'restaurant',
+          cuisine: 'Mediterranean',
+          rating: 4.9,
+          lat: lat + 0.004,
+          lng: lng + 0.002,
+          distance: 0.5
+        },
+        {
+          id: '6',
+          name: 'Taco Verde Truck',
+          type: 'food_truck',
+          cuisine: 'Healthy Mexican',
+          rating: 4.4,
+          lat: lat - 0.003,
+          lng: lng + 0.001,
+          distance: 0.6
+        },
+        {
+          id: '7',
+          name: 'Asian Fusion Bistro',
+          type: 'restaurant',
+          cuisine: 'Asian Fusion',
+          rating: 4.6,
+          lat: lat + 0.002,
+          lng: lng - 0.004,
+          distance: 0.7
+        },
+        {
+          id: '8',
+          name: 'Farm Fresh Deli',
+          type: 'restaurant',
+          cuisine: 'Farm-to-Table',
+          rating: 4.8,
+          lat: lat + 0.005,
+          lng: lng - 0.001,
+          distance: 0.9
+        },
+        {
+          id: '9',
+          name: 'Healthy Hearts Cafe',
+          type: 'restaurant',
+          cuisine: 'Heart-Healthy',
+          rating: 4.7,
+          lat: lat - 0.004,
+          lng: lng - 0.002,
+          distance: 0.8
+        },
+        {
+          id: '10',
+          name: 'Vitality Kitchen',
+          type: 'restaurant',
+          cuisine: 'Nutritious Bowls',
+          rating: 4.5,
+          lat: lat - 0.002,
+          lng: lng - 0.005,
+          distance: 1.0
+        },
+        {
+          id: '11',
+          name: 'Pure Plates',
+          type: 'restaurant',
+          cuisine: 'Clean Eating',
+          rating: 4.6,
+          lat: lat + 0.006,
+          lng: lng + 0.003,
+          distance: 1.1
+        },
+        {
+          id: '12',
+          name: 'Wellness Grill',
+          type: 'restaurant',
+          cuisine: 'Grilled Healthy',
+          rating: 4.4,
+          lat: lat - 0.005,
+          lng: lng + 0.004,
+          distance: 1.2
         }
       ];
       
