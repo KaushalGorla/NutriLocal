@@ -115,7 +115,7 @@ export default function Home() {
       <section 
         className="relative overflow-hidden decorative-shapes py-20 lg:py-32"
         style={{
-          backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url(${heroBackgroundImage})`,
+          backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(${heroBackgroundImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
