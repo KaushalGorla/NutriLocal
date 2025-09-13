@@ -248,16 +248,30 @@ export default function LiveMap() {
     if (!userLocation) return null;
 
     return (
-      <div className="relative w-full h-full bg-slate-100 rounded-lg overflow-hidden">
-        {/* Street grid pattern */}
-        <div className="absolute inset-0">
-          <svg width="100%" height="100%" className="opacity-20">
+      <div className="relative w-full h-full bg-green-50 rounded-lg overflow-hidden">
+        {/* Realistic map background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-green-100 via-blue-50 to-green-100">
+          {/* Streets */}
+          <svg width="100%" height="100%" className="opacity-40">
             <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#94a3b8" strokeWidth="1"/>
+              {/* Street pattern */}
+              <pattern id="streets" width="80" height="80" patternUnits="userSpaceOnUse">
+                <rect width="80" height="80" fill="#e8f5e8"/>
+                <path d="M 0 20 L 80 20" stroke="#9ca3af" strokeWidth="2"/>
+                <path d="M 0 60 L 80 60" stroke="#9ca3af" strokeWidth="2"/>
+                <path d="M 20 0 L 20 80" stroke="#9ca3af" strokeWidth="2"/>
+                <path d="M 60 0 L 60 80" stroke="#9ca3af" strokeWidth="2"/>
+                <path d="M 0 40 L 80 40" stroke="#d1d5db" strokeWidth="1"/>
+                <path d="M 40 0 L 40 80" stroke="#d1d5db" strokeWidth="1"/>
+              </pattern>
+              {/* Parks/green areas */}
+              <pattern id="parks" width="120" height="120" patternUnits="userSpaceOnUse">
+                <circle cx="60" cy="60" r="25" fill="#bbf7d0" opacity="0.6"/>
+                <circle cx="30" cy="30" r="15" fill="#dcfce7" opacity="0.4"/>
               </pattern>
             </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
+            <rect width="100%" height="100%" fill="url(#streets)" />
+            <rect width="100%" height="100%" fill="url(#parks)" />
           </svg>
         </div>
 
@@ -280,24 +294,31 @@ export default function LiveMap() {
 
         {/* Nearby restaurants */}
         {nearbyRestaurants.map((restaurant, index) => {
-          const offsetX = (index % 3 - 1) * 80;
-          const offsetY = (Math.floor(index / 3) - 1) * 60;
+          // Create a better spread pattern for restaurants
+          const angle = (index * 360 / nearbyRestaurants.length) * (Math.PI / 180);
+          const radius = 25 + (index % 3) * 15; // Varying distances from center
+          const offsetX = Math.cos(angle) * radius;
+          const offsetY = Math.sin(angle) * radius;
           
           return (
             <div
               key={restaurant.id}
-              className="absolute transform -translate-x-1/2 -translate-y-1/2 z-10"
+              className="absolute transform -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer hover:scale-110 transition-transform"
               style={{
                 left: `${50 + offsetX}%`,
                 top: `${50 + offsetY}%`
               }}
             >
               <div 
-                className={`w-3 h-3 rounded-full border-2 border-white shadow-lg ${
-                  restaurant.type === 'food_truck' ? 'bg-orange-500' : 'bg-green-500'
-                }`}
-                title={`${restaurant.name} - ${restaurant.distance}mi`}
+                className={`w-4 h-4 rounded-full border-3 border-white shadow-xl ${
+                  restaurant.type === 'food_truck' ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600'
+                } animate-pulse`}
+                title={`${restaurant.name} - ${restaurant.cuisine} - ${restaurant.distance}mi - ⭐${restaurant.rating}`}
               ></div>
+              {/* Restaurant name label on hover */}
+              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-sm rounded px-2 py-1 text-xs font-medium shadow-lg opacity-0 hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                {restaurant.name}
+              </div>
             </div>
           );
         })}
