@@ -1,0 +1,73 @@
+🎯 Core MVP (Lean Build)
+
+Problem:
+
+Local restaurants struggle to attract customers who are health-conscious.
+
+Customers struggle to find affordable meals aligned with nutrition goals (calories, protein, etc.).
+
+Solution (MVP):
+
+A mobile app where users input simple goals (calories/day, protein target, budget).
+
+The app suggests meal options from nearby local businesses that fit both nutrition and cost.
+
+Simple interface: Profile setup → Recommendations list → Order link (or “visit” info).
+
+MVP Features:
+
+User profile (diet goals + budget).
+
+Local restaurant menu scraping or manual input.
+
+Algorithm: Match user goals ↔ menu items (filter + recommend).
+
+Basic nutrition breakdown + price per meal.
+
+Map view of local businesses.
+
+🌱 Social Good Additions
+
+To move beyond just “personal fitness,” make it community-focused & philanthropic:
+
+Support Local Economy
+
+Prioritize small/local restaurants over chains to funnel money into the community.
+
+Highlight minority-owned, women-owned, or family-owned businesses.
+
+Healthy + Affordable Access
+
+Show budget-friendly nutritious meals → useful for students, low-income users, or food deserts.
+
+Partner with local nonprofits to include discount vouchers or subsidies.
+
+Food Waste Reduction
+
+Businesses can list end-of-day surplus meals at discount (healthy + reduces waste).
+
+Users get affordable options → restaurants don’t throw food away.
+
+Community Nutrition Goals
+
+Users can “team up” with friends or neighborhoods to reach collective nutrition challenges (e.g., “Our town hit 10,000g of protein this week!”).
+
+Gamification = more engagement.
+
+Charitable Tie-In
+
+For every meal plan purchased, the business can donate a small portion to a local food bank.
+
+Or users can round up orders to support local hunger relief.
+
+🚀 Exciting Feature Ideas (Beyond MVP)
+
+Personalized Meal Plan Generator: AI suggests weekly meal plans across multiple businesses.
+
+Cultural Food Explorer: Encourages people to try healthy dishes from diverse local cuisines.
+
+Accessibility Mode: Filter by allergies (gluten-free, nut-free, halal, kosher, vegan).
+
+Impact Dashboard: Tracks how your choices helped → “You supported 5 local businesses & saved 3 lbs of food waste this month.”
+
+Integration with Fitness Apps: Sync with Apple Health/Fitbit to adapt recommendations.
