@@ -27,25 +27,23 @@ export default function Home() {
               transition={{ duration: 0.8 }}
             >
               <div>
-                <h2 className="text-4xl lg:text-6xl font-black leading-tight text-balance" style={{ 
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.8)',
-                  color: '#1a1a1a'
+                <h2 className="text-4xl lg:text-6xl font-bold leading-tight text-balance text-foreground" style={{ 
+                  textShadow: '1px 1px 3px rgba(0,0,0,0.2)'
                 }}>
                   Discover{" "}
-                  <span className="animated-gradient-text" style={{
-                    fontWeight: '900',
-                    fontSize: '1.1em',
-                    textShadow: '2px 2px 6px rgba(0,0,0,0.5), 0 0 15px rgba(255,255,255,0.9)'
+                  <span className="text-primary font-bold" style={{
+                    fontWeight: '700',
+                    fontSize: '1.05em',
+                    textShadow: '1px 1px 3px rgba(0,0,0,0.3)'
                   }}>
                     Healthy Meals
                   </span>
                   <br />
                   from Local Restaurants
                 </h2>
-                <p className="text-xl font-semibold mt-6 leading-relaxed" style={{ 
-                  textShadow: '1px 1px 3px rgba(0,0,0,0.4), 0 0 8px rgba(255,255,255,0.9)',
-                  color: '#2a2a2a',
-                  backgroundColor: 'rgba(255,255,255,0.3)',
+                <p className="text-xl font-medium mt-6 leading-relaxed text-muted-foreground" style={{ 
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
+                  backgroundColor: 'rgba(255,255,255,0.8)',
                   padding: '12px 16px',
                   borderRadius: '8px',
                   backdropFilter: 'blur(2px)'

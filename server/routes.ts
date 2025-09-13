@@ -5,7 +5,7 @@ import multer from "multer";
 import { storage } from "./storage";
 import { insertUserProfileSchema } from "@shared/schema";
 import { z } from "zod";
-import { analyzeDocumentAndGetRecommendations, extractTextFromPDF, generatePersonalizedRecommendations, generateRestaurantRecommendations } from "./gemini-service";
+import { analyzeDocumentAndGetRecommendations, extractTextFromPDF, generatePersonalizedRecommendations, generateRestaurantRecommendations, generateWeeklyMealPlan } from "./gemini-service";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Add centralized error handler for better error responses
@@ -218,6 +218,73 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(recommendations);
     } catch (error) {
       console.error("Error generating AI recommendations:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // Weekly meal plan generation
+  app.post("/api/meal-plan/:userId", async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const { lat, lng } = req.body;
+      
+      // Get user profile
+      const userProfile = await storage.getUserProfile(userId);
+      
+      if (!userProfile) {
+        return res.status(404).json({ error: "User profile not found" });
+      }
+      
+      // Get nearby restaurants
+      let nearbyRestaurants;
+      if (lat && lng) {
+        nearbyRestaurants = await generateRestaurantRecommendations(
+          { lat: parseFloat(lat), lng: parseFloat(lng) },
+          {
+            dietaryGoals: `${userProfile.dailyCalories} calories daily`,
+            restrictions: userProfile.dietaryRestrictions ? userProfile.dietaryRestrictions.join(', ') : '',
+            budget: userProfile.maxMealPrice || 'moderate',
+            cuisinePreference: 'healthy options'
+          }
+        );
+      } else {
+        // Use fallback restaurants if no location provided
+        nearbyRestaurants = [
+          {
+            id: '1',
+            name: 'Green Bowl Co.',
+            cuisine: 'Healthy Bowls',
+            priceRange: 'Moderate',
+            healthyOptions: ['Quinoa Power Bowl', 'Kale Caesar Salad', 'Protein Smoothie Bowls']
+          },
+          {
+            id: '2',
+            name: 'Fresh Start Cafe',
+            cuisine: 'Plant-Based',
+            priceRange: 'Moderate',
+            healthyOptions: ['Buddha Bowl', 'Raw Zucchini Noodles', 'Green Goddess Smoothie']
+          },
+          {
+            id: '3',
+            name: 'Protein Power Truck',
+            cuisine: 'High Protein',
+            priceRange: 'Moderate',
+            healthyOptions: ['Grilled Salmon Plate', 'Turkey & Sweet Potato', 'Protein Power Bowls']
+          }
+        ];
+      }
+      
+      // Generate weekly meal plan
+      const weeklyMealPlan = await generateWeeklyMealPlan({
+        dailyCalories: userProfile.dailyCalories,
+        proteinTarget: userProfile.proteinTarget,
+        maxMealPrice: userProfile.maxMealPrice,
+        dietaryRestrictions: userProfile.dietaryRestrictions || undefined
+      }, nearbyRestaurants);
+      
+      res.json(weeklyMealPlan);
+    } catch (error) {
+      console.error("Error generating weekly meal plan:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   });
