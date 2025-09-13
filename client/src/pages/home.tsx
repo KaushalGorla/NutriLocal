@@ -56,8 +56,11 @@ export default function Home() {
                     style={{
                       fontWeight: '900',
                       fontSize: '1.3em',
-                      color: '#22c55e',
-                      textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 15px rgba(34, 197, 94, 0.7)',
+                      background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 50%, hsl(var(--secondary)) 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
                       display: 'inline-block',
                       padding: '4px 12px'
                     }}
