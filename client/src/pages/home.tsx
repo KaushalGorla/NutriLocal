@@ -37,17 +37,29 @@ export default function Home() {
                     animate={{ 
                       opacity: 1, 
                       scale: 1,
+                      color: [
+                        "#22c55e",
+                        "#3b82f6", 
+                        "#22c55e",
+                        "#3b82f6"
+                      ],
                       textShadow: [
-                        "0px 0px 0px rgba(34, 197, 94, 0.0)",
-                        "0px 0px 20px rgba(34, 197, 94, 0.8)",
-                        "0px 0px 10px rgba(34, 197, 94, 0.6)",
-                        "0px 0px 20px rgba(34, 197, 94, 0.8)"
+                        "2px 2px 0px #000, -2px -2px 0px #000, 2px -2px 0px #000, -2px 2px 0px #000, 0 0 20px rgba(34, 197, 94, 0.8)",
+                        "2px 2px 0px #000, -2px -2px 0px #000, 2px -2px 0px #000, -2px 2px 0px #000, 0 0 20px rgba(59, 130, 246, 0.8)",
+                        "2px 2px 0px #000, -2px -2px 0px #000, 2px -2px 0px #000, -2px 2px 0px #000, 0 0 20px rgba(34, 197, 94, 0.8)",
+                        "2px 2px 0px #000, -2px -2px 0px #000, 2px -2px 0px #000, -2px 2px 0px #000, 0 0 20px rgba(59, 130, 246, 0.8)"
                       ]
                     }}
                     transition={{ 
                       duration: 1.2,
+                      color: {
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut"
+                      },
                       textShadow: {
-                        duration: 2,
+                        duration: 3,
                         repeat: Infinity,
                         repeatType: "reverse",
                         ease: "easeInOut"
@@ -56,8 +68,6 @@ export default function Home() {
                     style={{
                       fontWeight: '900',
                       fontSize: '1.4em',
-                      color: '#22c55e',
-                      textShadow: '4px 4px 8px rgba(0,0,0,0.8), 0 0 30px rgba(34, 197, 94, 0.9), 3px 3px 0px rgba(255,255,255,0.8), -1px -1px 0px rgba(0,0,0,0.5)',
                       display: 'inline-block',
                       padding: '6px 16px',
                       letterSpacing: '1px'
