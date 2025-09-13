@@ -12,6 +12,7 @@ import ImpactDashboard from "@/components/impact-dashboard";
 import { api } from "@/lib/api";
 import { Sparkles, ArrowRight, Menu } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import heroBackgroundImage from "@assets/generated_images/People_enjoying_healthy_food_together_d27e89e1.png";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -111,7 +112,15 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden gradient-hero decorative-shapes py-20 lg:py-32">
+      <section 
+        className="relative overflow-hidden decorative-shapes py-20 lg:py-32"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url(${heroBackgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
