@@ -27,7 +27,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
             >
               <div>
-                <h2 className="text-4xl lg:text-6xl font-bold leading-tight text-balance text-foreground text-center lg:text-left" style={{ 
+                <h2 className="text-4xl lg:text-6xl font-bold leading-tight text-balance text-foreground text-left" style={{ 
                   textShadow: '1px 1px 3px rgba(0,0,0,0.2)'
                 }}>
                   Discover
@@ -68,7 +68,7 @@ export default function Home() {
                     }}
                     style={{
                       fontWeight: '900',
-                      fontSize: '1.4em',
+                      fontSize: '1.2em',
                       display: 'inline-block',
                       padding: '6px 16px',
                       letterSpacing: '1px'
