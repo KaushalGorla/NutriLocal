@@ -1,9 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { MapPin, Filter } from "lucide-react";
+import { Filter } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import RestaurantCard from "./restaurant-card";
+import LiveMap from "./live-map";
 import { api } from "@/lib/api";
 import { useLocation } from "wouter";
 
@@ -34,52 +35,23 @@ export default function MapSection() {
     >
       <div className="text-center mb-12">
         <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-          Healthy Restaurants Near You
+          Live Map - Restaurants & Food Trucks
         </h2>
         <p className="text-xl text-muted-foreground">
-          Discover local businesses offering nutritious options in your area
+          Real-time locations of healthy restaurants and food trucks near you
         </p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
-        {/* Map Container */}
+        {/* Live Map Container */}
         <div className="lg:col-span-2">
-          <div className="map-container aspect-[4/3] lg:aspect-[16/10] p-8 flex items-center justify-center">
-            <div className="text-center space-y-4">
-              <motion.div
-                className="w-16 h-16 gradient-primary rounded-2xl mx-auto flex items-center justify-center"
-                animate={{ 
-                  scale: [1, 1.05, 1],
-                  rotate: [0, 5, -5, 0]
-                }}
-                transition={{ 
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <MapPin className="text-white text-2xl" size={32} />
-              </motion.div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">Interactive Map</h3>
-                <p className="text-muted-foreground">Real-time restaurant locations with health-conscious options</p>
+          <Card className="h-full">
+            <CardContent className="p-4 h-full">
+              <div className="h-[400px] lg:h-[500px]">
+                <LiveMap />
               </div>
-              <div className="flex justify-center space-x-4 pt-4">
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-primary rounded-full"></div>
-                  <span className="text-sm">High Protein</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-secondary rounded-full"></div>
-                  <span className="text-sm">Low Calorie</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-accent rounded-full"></div>
-                  <span className="text-sm">Local Owned</span>
-                </div>
-              </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Sidebar with restaurant list */}

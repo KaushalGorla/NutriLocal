@@ -112,51 +112,6 @@ function CSS3DFallback() {
           </div>
         </div>
         
-        {/* Food Items */}
-        <div 
-          className="absolute w-12 h-12 bg-red-500 rounded-full animate-bounce"
-          style={{ 
-            right: '20%',
-            top: '30%',
-            background: 'radial-gradient(circle at 30% 30%, #f87171, #ef4444)',
-            animationDelay: '0.5s'
-          }}
-        />
-        
-        <div 
-          className="absolute w-8 h-16 bg-orange-500 rounded-full animate-pulse"
-          style={{ 
-            left: '25%',
-            bottom: '35%',
-            background: 'linear-gradient(to bottom, #fb923c, #f97316)',
-            transform: 'rotate(25deg)',
-            animationDelay: '1s'
-          }}
-        />
-        
-        <div 
-          className="absolute w-10 h-10 bg-green-600 rounded-full animate-ping"
-          style={{ 
-            right: '35%',
-            bottom: '30%',
-            background: 'radial-gradient(circle at 30% 30%, #22c55e, #16a34a)',
-            animationDelay: '1.5s'
-          }}
-        />
-        
-        {/* Floating particles */}
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-primary rounded-full animate-float"
-            style={{
-              left: `${20 + (i * 8)}%`,
-              top: `${15 + (i * 6)}%`,
-              animationDelay: `${i * 0.3}s`,
-              animationDuration: `${3 + (i * 0.5)}s`
-            }}
-          />
-        ))}
       </div>
       
       {/* Nutrition info overlay */}
@@ -399,43 +354,6 @@ export default function Nutrition3DScene() {
         }
       );
 
-      // Food items
-      const foodItems: THREE.Object3D[] = [];
-      
-      // Apple
-      const appleGeometry = new THREE.SphereGeometry(0.5, 16, 16);
-      const appleMaterial = new THREE.MeshLambertMaterial({ color: 0xff4444 });
-      const apple = new THREE.Mesh(appleGeometry, appleMaterial);
-      apple.position.set(3, 1, 0);
-      apple.scale.set(1, 1.2, 1);
-      group.add(apple);
-      foodItems.push(apple);
-
-      // Carrot
-      const carrotGeometry = new THREE.CylinderGeometry(0.1, 0.3, 1, 8);
-      const carrotMaterial = new THREE.MeshLambertMaterial({ color: 0xff8c00 });
-      const carrot = new THREE.Mesh(carrotGeometry, carrotMaterial);
-      carrot.position.set(-1, -1, 1);
-      carrot.rotation.z = Math.PI / 6;
-      group.add(carrot);
-      foodItems.push(carrot);
-
-      // Broccoli (represented as small spheres)
-      const broccoliGroup = new THREE.Group();
-      for (let i = 0; i < 5; i++) {
-        const broccoliGeometry = new THREE.SphereGeometry(0.2, 8, 8);
-        const broccoliMaterial = new THREE.MeshLambertMaterial({ color: 0x16a34a });
-        const broccoliPiece = new THREE.Mesh(broccoliGeometry, broccoliMaterial);
-        broccoliPiece.position.set(
-          (Math.random() - 0.5) * 0.8,
-          Math.random() * 0.5,
-          (Math.random() - 0.5) * 0.8
-        );
-        broccoliGroup.add(broccoliPiece);
-      }
-      broccoliGroup.position.set(1, -1, -1);
-      group.add(broccoliGroup);
-      foodItems.push(broccoliGroup);
 
       scene.add(group);
 
@@ -449,13 +367,6 @@ export default function Nutrition3DScene() {
           burgerModel.position.y = 2 + Math.sin(Date.now() * 0.001) * 0.3;
         }
 
-        // Rotate food items
-        foodItems.forEach((item, index) => {
-          item.rotation.y += 0.005 * (index + 1);
-          if (item !== broccoliGroup) {
-            item.rotation.x += 0.003 * (index + 1);
-          }
-        });
 
         // Rotate the entire group slowly
         group.rotation.y += 0.002;
