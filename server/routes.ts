@@ -1,8 +1,10 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import multer from "multer";
 import { storage } from "./storage";
 import { insertUserProfileSchema } from "@shared/schema";
 import { z } from "zod";
+import { analyzeDocumentAndGetRecommendations, extractTextFromPDF } from "./gemini-service";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // User profile routes
@@ -175,6 +177,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching impact data:", error);
       res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // AI Meal Recommendations from PDF documents
+  const upload = multer({ 
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+    fileFilter: (req, file, cb) => {
+      if (file.mimetype === 'application/pdf') {
+        cb(null, true);
+      } else {
+        cb(new Error('Only PDF files are allowed'));
+      }
+    }
+  });
+
+  app.post("/api/ai-meal-recommendations", upload.single('document'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No PDF file uploaded" });
+      }
+
+      const preferences = JSON.parse(req.body.preferences || '{}');
+      
+      // Extract text from PDF (placeholder implementation)
+      const documentText = await extractTextFromPDF(req.file.buffer);
+      
+      // Get AI recommendations using Gemini
+      const recommendations = await analyzeDocumentAndGetRecommendations(documentText, preferences);
+      
+      res.json({ recommendations });
+    } catch (error) {
+      console.error("Error processing AI recommendations:", error);
+      res.status(500).json({ error: "Failed to process document and generate recommendations" });
     }
   });
 

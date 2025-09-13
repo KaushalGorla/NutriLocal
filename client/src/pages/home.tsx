@@ -1,116 +1,15 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "wouter";
-import AnimatedLogo from "@/components/animated-logo";
-import ProfileSetupForm from "@/components/profile-setup-form";
-import MealCard from "@/components/meal-card";
-import MapSection from "@/components/map-section";
-import ImpactDashboard from "@/components/impact-dashboard";
-import { api } from "@/lib/api";
-import { Sparkles, ArrowRight, Menu } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { Link } from "wouter";
+import { Sparkles, ArrowRight } from "lucide-react";
 import heroBackgroundImage from "@assets/generated_images/People_enjoying_healthy_food_together_d27e89e1.png";
 import Nutrition3DScene from "@/components/3d/nutrition-3d-scene";
+import AnimatedLogo from "@/components/animated-logo";
 
 export default function Home() {
-  const [, setLocation] = useLocation();
-  const [currentUserId] = useState("temp-user-id"); // In real app, would come from auth
-  const [showProfileForm, setShowProfileForm] = useState(false);
-  const { toast } = useToast();
-
-  const { data: recommendations, refetch: refetchRecommendations } = useQuery({
-    queryKey: ["/api/recommendations", currentUserId],
-    queryFn: () => api.getRecommendations(currentUserId),
-    enabled: false, // Only fetch after profile creation
-  });
-
-  const handleProfileSuccess = () => {
-    setShowProfileForm(false);
-    refetchRecommendations();
-    toast({
-      title: "Perfect matches found!",
-      description: "We've found healthy meals that match your goals and budget.",
-    });
-  };
-
-  const handleViewDetails = (menuItemId: string) => {
-    // In a real app, this would navigate to a meal detail page
-    toast({
-      title: "Meal Details",
-      description: "Opening detailed view with nutrition info and ordering options.",
-    });
-  };
-
-  const handleOrderMeal = (menuItemId: string) => {
-    toast({
-      title: "Redirecting to Restaurant",
-      description: "Taking you to the restaurant's ordering system.",
-    });
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full app-header">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <AnimatedLogo />
-              <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  NutriLocal
-                </h1>
-                <p className="text-xs text-muted-foreground">Healthy • Local • Affordable</p>
-              </div>
-            </div>
-
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-6">
-              <button
-                onClick={() => scrollToSection("discover")}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                data-testid="nav-discover"
-              >
-                Discover
-              </button>
-              <button
-                onClick={() => scrollToSection("map")}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                data-testid="nav-map"
-              >
-                Map
-              </button>
-              <button
-                onClick={() => scrollToSection("impact")}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                data-testid="nav-impact"
-              >
-                Impact
-              </button>
-              <Button
-                onClick={() => setShowProfileForm(true)}
-                className="gradient-primary text-primary-foreground hover:opacity-90"
-                data-testid="button-get-started"
-              >
-                Get Started
-              </Button>
-            </nav>
-
-            {/* Mobile menu button */}
-            <Button variant="ghost" size="sm" className="md:hidden" data-testid="button-mobile-menu">
-              <Menu className="h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-      </header>
 
       {/* Hero Section */}
       <section 
@@ -196,34 +95,36 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  onClick={() => setShowProfileForm(true)}
-                  className="gradient-primary text-primary-foreground px-8 py-4 rounded-xl font-bold hover:opacity-90 transition-opacity shadow-xl"
-                  style={{
-                    textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-                    boxShadow: '0 8px 25px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2)'
-                  }}
-                  data-testid="button-setup-profile"
-                >
-                  <Sparkles className="mr-2" size={20} />
-                  Set Up Your Profile
-                </Button>
-                <Button
-                  onClick={() => scrollToSection("discover")}
-                  variant="outline"
-                  className="px-8 py-4 rounded-xl font-bold"
-                  style={{
-                    textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
-                    backgroundColor: 'rgba(255,255,255,0.8)',
-                    borderColor: 'rgba(0,0,0,0.3)',
-                    color: '#1a1a1a',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
-                  }}
-                  data-testid="button-explore-restaurants"
-                >
-                  Explore Restaurants
-                  <ArrowRight className="ml-2" size={20} />
-                </Button>
+                <Link href="/discover">
+                  <Button
+                    className="gradient-primary text-primary-foreground px-8 py-4 rounded-xl font-bold hover:opacity-90 transition-opacity shadow-xl"
+                    style={{
+                      textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                      boxShadow: '0 8px 25px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2)'
+                    }}
+                    data-testid="button-setup-profile"
+                  >
+                    <Sparkles className="mr-2" size={20} />
+                    Set Up Your Profile
+                  </Button>
+                </Link>
+                <Link href="/discover">
+                  <Button
+                    variant="outline"
+                    className="px-8 py-4 rounded-xl font-bold"
+                    style={{
+                      textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
+                      backgroundColor: 'rgba(255,255,255,0.8)',
+                      borderColor: 'rgba(0,0,0,0.3)',
+                      color: '#1a1a1a',
+                      boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
+                    }}
+                    data-testid="button-explore-restaurants"
+                  >
+                    Explore Restaurants
+                    <ArrowRight className="ml-2" size={20} />
+                  </Button>
+                </Link>
               </div>
             </motion.div>
 
@@ -248,67 +149,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Profile Setup Section */}
-      {showProfileForm && (
-        <section className="py-20 bg-muted/30">
-          <div className="container mx-auto px-4 lg:px-8">
-            <ProfileSetupForm onSuccess={handleProfileSuccess} />
-          </div>
-        </section>
-      )}
-
-      {/* Recommendations Section */}
-      {recommendations && recommendations.length > 0 && (
-        <section id="discover" className="py-20 section-restaurants food-pattern">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-                  Perfect Matches for You
-                </h2>
-                <p className="text-xl text-muted-foreground">
-                  Based on your health goals and budget preferences
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {recommendations.map((recommendation) => (
-                  <MealCard
-                    key={recommendation.id}
-                    recommendation={recommendation}
-                    onViewDetails={handleViewDetails}
-                    onOrderMeal={handleOrderMeal}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Map Section */}
-      <section id="map" className="py-20 section-map">
-        <div className="container mx-auto px-4 lg:px-8">
-          <MapSection />
-        </div>
-      </section>
-
-      {/* Impact Dashboard */}
-      <section id="impact" className="py-20 section-impact">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-                Your Community Impact
-              </h2>
-              <p className="text-xl text-muted-foreground">
-                Track how your healthy choices support local businesses and reduce food waste
-              </p>
-            </div>
-            <ImpactDashboard userId={currentUserId} />
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="bg-foreground text-background py-16">
