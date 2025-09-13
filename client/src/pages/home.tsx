@@ -1,11 +1,8 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
 import { Sparkles, ArrowRight } from "lucide-react";
 import heroBackgroundImage from "@assets/generated_images/People_enjoying_healthy_food_together_d27e89e1.png";
-import Nutrition3DScene from "@/components/3d/nutrition-3d-scene";
-import AnimatedLogo from "@/components/animated-logo";
 
 export default function Home() {
   return (
@@ -134,16 +131,12 @@ export default function Home() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {/* 3D Nutrition Visualization */}
-              <Card className="rounded-3xl p-4 shadow-2xl max-w-lg mx-auto animate-float" style={{
-                border: '3px solid #1a1a1a',
-                borderRadius: '24px',
-                height: '400px'
-              }}>
-                <CardContent className="p-0 h-full">
-                  <Nutrition3DScene />
-                </CardContent>
-              </Card>
+              {/* Health & Nutrition Visual */}
+              <div className="max-w-lg mx-auto text-center">
+                <div className="text-6xl mb-4">🥗</div>
+                <h3 className="text-2xl font-bold mb-2">Discover Healthy Options</h3>
+                <p className="text-muted-foreground">Find nutritious meals from local restaurants that match your health goals and budget.</p>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -158,7 +151,7 @@ export default function Home() {
               {/* Logo and Description */}
               <div className="lg:col-span-2">
                 <div className="flex items-center space-x-3 mb-4">
-                  <AnimatedLogo size="sm" />
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary"></div>
                   <h3 className="text-xl font-bold">NutriLocal</h3>
                 </div>
                 <p className="text-background/80 leading-relaxed mb-6">

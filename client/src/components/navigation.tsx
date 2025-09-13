@@ -50,14 +50,6 @@ export default function Navigation() {
                 {item.label}
               </Link>
             ))}
-            <Link href="/discover">
-              <Button
-                className="gradient-primary text-primary-foreground hover:opacity-90"
-                data-testid="button-get-started"
-              >
-                Get Started
-              </Button>
-            </Link>
           </nav>
 
           {/* Mobile menu button */}
@@ -91,14 +83,6 @@ export default function Navigation() {
                   {item.label}
                 </Link>
               ))}
-              <Link href="/discover" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button
-                  className="gradient-primary text-primary-foreground w-full mt-2"
-                  data-testid="mobile-button-get-started"
-                >
-                  Get Started
-                </Button>
-              </Link>
             </nav>
           </div>
         )}

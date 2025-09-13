@@ -178,16 +178,16 @@ export default function AIMeals() {
                       value={preferences.dietaryGoals}
                       onValueChange={(value) => setPreferences(prev => ({ ...prev, dietaryGoals: value }))}
                     >
-                      <SelectTrigger data-testid="select-dietary-goals">
+                      <SelectTrigger data-testid="select-dietary-goals" className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700">
                         <SelectValue placeholder="Select your primary goal" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="weight-loss">Weight Loss</SelectItem>
-                        <SelectItem value="muscle-gain">Muscle Gain</SelectItem>
-                        <SelectItem value="maintenance">Maintenance</SelectItem>
-                        <SelectItem value="heart-health">Heart Health</SelectItem>
-                        <SelectItem value="diabetes-management">Diabetes Management</SelectItem>
-                        <SelectItem value="general-wellness">General Wellness</SelectItem>
+                      <SelectContent className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 backdrop-blur-sm">
+                        <SelectItem value="weight-loss" className="hover:bg-gray-100 dark:hover:bg-gray-800">Weight Loss</SelectItem>
+                        <SelectItem value="muscle-gain" className="hover:bg-gray-100 dark:hover:bg-gray-800">Muscle Gain</SelectItem>
+                        <SelectItem value="maintenance" className="hover:bg-gray-100 dark:hover:bg-gray-800">Maintenance</SelectItem>
+                        <SelectItem value="heart-health" className="hover:bg-gray-100 dark:hover:bg-gray-800">Heart Health</SelectItem>
+                        <SelectItem value="diabetes-management" className="hover:bg-gray-100 dark:hover:bg-gray-800">Diabetes Management</SelectItem>
+                        <SelectItem value="general-wellness" className="hover:bg-gray-100 dark:hover:bg-gray-800">General Wellness</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -209,13 +209,13 @@ export default function AIMeals() {
                       value={preferences.budget}
                       onValueChange={(value) => setPreferences(prev => ({ ...prev, budget: value }))}
                     >
-                      <SelectTrigger data-testid="select-budget">
+                      <SelectTrigger data-testid="select-budget" className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700">
                         <SelectValue placeholder="Select budget range" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="budget">Budget ($5-10)</SelectItem>
-                        <SelectItem value="moderate">Moderate ($10-20)</SelectItem>
-                        <SelectItem value="premium">Premium ($20+)</SelectItem>
+                      <SelectContent className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 backdrop-blur-sm">
+                        <SelectItem value="budget" className="hover:bg-gray-100 dark:hover:bg-gray-800">Budget ($5-10)</SelectItem>
+                        <SelectItem value="moderate" className="hover:bg-gray-100 dark:hover:bg-gray-800">Moderate ($10-20)</SelectItem>
+                        <SelectItem value="premium" className="hover:bg-gray-100 dark:hover:bg-gray-800">Premium ($20+)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
