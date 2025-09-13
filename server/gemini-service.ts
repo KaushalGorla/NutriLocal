@@ -74,13 +74,24 @@ ${documentText}`;
       contents: prompt,
     });
 
+    // Fix: Access text as a property (it's a getter, not a function)
     const rawJson = response.text;
     
     if (rawJson) {
-      const data = JSON.parse(rawJson);
-      return data.recommendations || [];
+      try {
+        const data = JSON.parse(rawJson);
+        // Validate the response structure
+        if (data && Array.isArray(data.recommendations)) {
+          return data.recommendations;
+        } else {
+          throw new Error("Invalid response structure from AI model");
+        }
+      } catch (parseError) {
+        console.error("Failed to parse AI response JSON:", parseError);
+        throw new Error("Invalid JSON response from AI model");
+      }
     } else {
-      throw new Error("Empty response from model");
+      throw new Error("Empty response from AI model");
     }
   } catch (error) {
     console.error("Failed to analyze document:", error);

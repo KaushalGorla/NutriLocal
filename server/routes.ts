@@ -1,4 +1,5 @@
 import type { Express } from "express";
+import type { Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import multer from "multer";
 import { storage } from "./storage";
@@ -7,6 +8,22 @@ import { z } from "zod";
 import { analyzeDocumentAndGetRecommendations, extractTextFromPDF } from "./gemini-service";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Add centralized error handler for better error responses
+  const handleMulterError = (error: any, req: Request, res: Response, next: NextFunction) => {
+    if (error instanceof multer.MulterError) {
+      if (error.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ error: "File size exceeds 10MB limit" });
+      }
+      if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+        return res.status(400).json({ error: "Unexpected file field" });
+      }
+      return res.status(400).json({ error: "File upload error" });
+    }
+    if (error.message === 'Only PDF files are allowed') {
+      return res.status(400).json({ error: "Only PDF files are allowed" });
+    }
+    next(error);
+  };
   // User profile routes
   app.post("/api/user-profile", async (req, res) => {
     try {
@@ -193,15 +210,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/ai-meal-recommendations", upload.single('document'), async (req, res) => {
+  // Validation schema for AI meal preferences
+  const aiMealPreferencesSchema = z.object({
+    dietaryGoals: z.string().min(1, "Dietary goals are required"),
+    restrictions: z.string().optional().default(""),
+    budget: z.string().min(1, "Budget range is required"),
+    cuisinePreference: z.string().optional().default("")
+  });
+
+  app.post("/api/ai-meal-recommendations", upload.single('document'), handleMulterError, async (req, res) => {
     try {
+      // Validate file upload
       if (!req.file) {
         return res.status(400).json({ error: "No PDF file uploaded" });
       }
 
-      const preferences = JSON.parse(req.body.preferences || '{}');
+      // Additional file validation
+      if (req.file.size > 10 * 1024 * 1024) {
+        return res.status(400).json({ error: "File size exceeds 10MB limit" });
+      }
+
+      if (req.file.mimetype !== 'application/pdf') {
+        return res.status(400).json({ error: "Only PDF files are allowed" });
+      }
+
+      // Validate and parse preferences
+      let preferences;
+      try {
+        const rawPreferences = JSON.parse(req.body.preferences || '{}');
+        preferences = aiMealPreferencesSchema.parse(rawPreferences);
+      } catch (parseError) {
+        return res.status(400).json({ 
+          error: "Invalid preferences data", 
+          details: parseError instanceof z.ZodError ? parseError.errors : "Invalid JSON" 
+        });
+      }
       
-      // Extract text from PDF (placeholder implementation)
+      // Extract text from PDF
       const documentText = await extractTextFromPDF(req.file.buffer);
       
       // Get AI recommendations using Gemini
@@ -210,6 +255,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ recommendations });
     } catch (error) {
       console.error("Error processing AI recommendations:", error);
+      
+      // Handle specific Gemini API errors
+      if (error instanceof Error && error.message.includes('API key')) {
+        return res.status(500).json({ error: "AI service configuration error" });
+      }
+      
       res.status(500).json({ error: "Failed to process document and generate recommendations" });
     }
   });
