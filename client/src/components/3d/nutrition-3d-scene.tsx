@@ -7,26 +7,34 @@ function CSS3DFallback() {
     <div className="relative w-full h-full bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl overflow-hidden">
       {/* 3D CSS animated elements */}
       <div className="absolute inset-0 flex items-center justify-center">
-        {/* Calories Ring */}
+        {/* 3D CSS Burger */}
         <div 
-          className="absolute w-24 h-24 border-8 border-green-500 rounded-full animate-spin"
+          className="absolute animate-float"
           style={{ 
-            left: '15%',
-            top: '25%',
-            animationDuration: '4s',
-            transform: 'perspective(100px) rotateX(60deg)'
-          }}
-        />
-        
-        {/* Protein Sphere */}
-        <div 
-          className="absolute w-16 h-16 bg-blue-500 rounded-full animate-float shadow-lg"
-          style={{ 
-            left: '45%',
+            left: '30%',
             top: '20%',
-            background: 'radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6)'
+            transform: 'perspective(200px) rotateX(10deg)'
           }}
-        />
+        >
+          {/* Top bun */}
+          <div className="w-20 h-6 bg-yellow-600 rounded-t-full shadow-lg mb-1"
+               style={{ background: 'linear-gradient(to bottom, #d97706, #92400e)' }} />
+          {/* Lettuce */}
+          <div className="w-18 h-2 bg-green-500 mx-1 shadow-sm"
+               style={{ background: 'linear-gradient(to right, #22c55e, #16a34a)' }} />
+          {/* Tomato */}
+          <div className="w-16 h-2 bg-red-500 mx-2 shadow-sm"
+               style={{ background: 'linear-gradient(to right, #ef4444, #dc2626)' }} />
+          {/* Cheese */}
+          <div className="w-17 h-2 bg-yellow-400 mx-1.5 shadow-sm"
+               style={{ background: 'linear-gradient(to right, #fbbf24, #f59e0b)' }} />
+          {/* Patty */}
+          <div className="w-18 h-4 bg-amber-800 mx-1 shadow-lg"
+               style={{ background: 'linear-gradient(to bottom, #92400e, #78350f)' }} />
+          {/* Bottom bun */}
+          <div className="w-20 h-4 bg-yellow-600 rounded-b-lg shadow-lg"
+               style={{ background: 'linear-gradient(to bottom, #d97706, #92400e)' }} />
+        </div>
         
         {/* Food Items */}
         <div 
@@ -163,20 +171,53 @@ export default function Nutrition3DScene() {
       // Create 3D nutrition visualization
       const group = new THREE.Group();
 
-      // Calories progress ring
-      const caloriesRingGeometry = new THREE.TorusGeometry(1.5, 0.1, 8, 100);
-      const caloriesRingMaterial = new THREE.MeshLambertMaterial({ color: 0x22c55e });
-      const caloriesRing = new THREE.Mesh(caloriesRingGeometry, caloriesRingMaterial);
-      caloriesRing.position.set(-3, 1, 0);
-      caloriesRing.rotation.x = Math.PI / 2;
-      group.add(caloriesRing);
+      // Create 3D Burger
+      const burgerGroup = new THREE.Group();
+      
+      // Bottom bun
+      const bottomBunGeometry = new THREE.CylinderGeometry(1.2, 1.2, 0.3, 16);
+      const bottomBunMaterial = new THREE.MeshLambertMaterial({ color: 0xd97706 });
+      const bottomBun = new THREE.Mesh(bottomBunGeometry, bottomBunMaterial);
+      bottomBun.position.y = -0.8;
+      burgerGroup.add(bottomBun);
 
-      // Protein progress sphere
-      const proteinSphereGeometry = new THREE.SphereGeometry(0.8, 16, 16);
-      const proteinSphereMaterial = new THREE.MeshLambertMaterial({ color: 0x3b82f6 });
-      const proteinSphere = new THREE.Mesh(proteinSphereGeometry, proteinSphereMaterial);
-      proteinSphere.position.set(0, 1, 0);
-      group.add(proteinSphere);
+      // Patty
+      const pattyGeometry = new THREE.CylinderGeometry(1.0, 1.0, 0.2, 16);
+      const pattyMaterial = new THREE.MeshLambertMaterial({ color: 0x92400e });
+      const patty = new THREE.Mesh(pattyGeometry, pattyMaterial);
+      patty.position.y = -0.5;
+      burgerGroup.add(patty);
+
+      // Cheese
+      const cheeseGeometry = new THREE.CylinderGeometry(1.1, 1.1, 0.1, 16);
+      const cheeseMaterial = new THREE.MeshLambertMaterial({ color: 0xfbbf24 });
+      const cheese = new THREE.Mesh(cheeseGeometry, cheeseMaterial);
+      cheese.position.y = -0.3;
+      burgerGroup.add(cheese);
+
+      // Lettuce
+      const lettuceGeometry = new THREE.CylinderGeometry(0.9, 0.9, 0.1, 16);
+      const lettuceMaterial = new THREE.MeshLambertMaterial({ color: 0x22c55e });
+      const lettuce = new THREE.Mesh(lettuceGeometry, lettuceMaterial);
+      lettuce.position.y = -0.1;
+      burgerGroup.add(lettuce);
+
+      // Tomato
+      const tomatoGeometry = new THREE.CylinderGeometry(0.8, 0.8, 0.1, 16);
+      const tomatoMaterial = new THREE.MeshLambertMaterial({ color: 0xef4444 });
+      const tomato = new THREE.Mesh(tomatoGeometry, tomatoMaterial);
+      tomato.position.y = 0.1;
+      burgerGroup.add(tomato);
+
+      // Top bun
+      const topBunGeometry = new THREE.SphereGeometry(1.2, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2);
+      const topBunMaterial = new THREE.MeshLambertMaterial({ color: 0xd97706 });
+      const topBun = new THREE.Mesh(topBunGeometry, topBunMaterial);
+      topBun.position.y = 0.5;
+      burgerGroup.add(topBun);
+
+      burgerGroup.position.set(0, 1, 0);
+      group.add(burgerGroup);
 
       // Food items
       const foodItems: THREE.Object3D[] = [];
@@ -222,11 +263,11 @@ export default function Nutrition3DScene() {
       const animate = () => {
         animationRef.current = requestAnimationFrame(animate);
 
-        // Rotate the calories ring
-        caloriesRing.rotation.z += 0.01;
+        // Rotate the burger
+        burgerGroup.rotation.y += 0.01;
 
-        // Float the protein sphere
-        proteinSphere.position.y = 1 + Math.sin(Date.now() * 0.001) * 0.3;
+        // Float the burger
+        burgerGroup.position.y = 1 + Math.sin(Date.now() * 0.001) * 0.3;
 
         // Rotate food items
         foodItems.forEach((item, index) => {
