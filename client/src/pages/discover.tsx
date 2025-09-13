@@ -154,65 +154,75 @@ export default function Discover() {
 
       {/* Loading Screen */}
       {isGeneratingPlan && (
-        <section className="py-20">
+        <section className="py-20 bg-background min-h-[60vh] flex items-center">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-2xl mx-auto text-center">
-              <div className="space-y-8">
-                {/* Animated Icons */}
-                <div className="flex justify-center space-x-4">
-                  <div className="animate-pulse">
-                    <ChefHat className="w-12 h-12 text-primary animate-bounce" style={{ animationDelay: '0ms' }} />
-                  </div>
-                  <div className="animate-pulse">
-                    <MapPin className="w-12 h-12 text-secondary animate-bounce" style={{ animationDelay: '200ms' }} />
-                  </div>
-                  <div className="animate-pulse">
-                    <Utensils className="w-12 h-12 text-accent animate-bounce" style={{ animationDelay: '400ms' }} />
-                  </div>
-                </div>
-
-                {/* Main Loading Spinner */}
-                <div className="flex justify-center">
-                  <Loader2 className="w-16 h-16 text-primary animate-spin" />
-                </div>
-
-                {/* Loading Text */}
-                <div className="space-y-4">
-                  <h2 className="text-3xl font-bold text-foreground">
-                    Creating Your Perfect Meal Plan
-                  </h2>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-center space-x-2 text-lg text-muted-foreground">
-                      <Clock className="w-5 h-5" />
-                      <span>Analyzing your nutrition goals...</span>
+            <div className="max-w-3xl mx-auto text-center">
+              <Card className="p-12 bg-card border-2 shadow-2xl">
+                <div className="space-y-10">
+                  {/* Animated Icons */}
+                  <div className="flex justify-center space-x-8">
+                    <div className="bg-primary/10 p-4 rounded-full">
+                      <ChefHat className="w-16 h-16 text-primary animate-bounce" style={{ animationDelay: '0ms' }} />
                     </div>
-                    <div className="flex items-center justify-center space-x-2 text-lg text-muted-foreground">
-                      <MapPin className="w-5 h-5" />
-                      <span>Finding nearby healthy restaurants...</span>
+                    <div className="bg-secondary/10 p-4 rounded-full">
+                      <MapPin className="w-16 h-16 text-secondary animate-bounce" style={{ animationDelay: '200ms' }} />
                     </div>
-                    <div className="flex items-center justify-center space-x-2 text-lg text-muted-foreground">
-                      <ChefHat className="w-5 h-5" />
-                      <span>Crafting your 7-day meal plan...</span>
+                    <div className="bg-accent/10 p-4 rounded-full">
+                      <Utensils className="w-16 h-16 text-accent animate-bounce" style={{ animationDelay: '400ms' }} />
                     </div>
                   </div>
 
-                  {/* Progress Bar */}
-                  <div className="w-full max-w-md mx-auto mt-6">
-                    <div className="w-full bg-muted rounded-full h-2">
-                      <div 
-                        className="bg-gradient-to-r from-primary to-accent h-2 rounded-full animate-pulse"
-                        style={{ 
-                          width: '75%',
-                          animation: 'pulse 2s ease-in-out infinite'
-                        }}
-                      ></div>
+                  {/* Main Loading Spinner */}
+                  <div className="flex justify-center">
+                    <div className="bg-primary/10 p-6 rounded-full">
+                      <Loader2 className="w-20 h-20 text-primary animate-spin" />
                     </div>
-                    <p className="text-sm text-muted-foreground mt-2">
-                      This usually takes 10-15 seconds...
-                    </p>
+                  </div>
+
+                  {/* Loading Text */}
+                  <div className="space-y-6">
+                    <h2 className="text-4xl lg:text-5xl font-black text-foreground">
+                      Creating Your Perfect Meal Plan
+                    </h2>
+                    <div className="space-y-4">
+                      <div className="bg-muted/50 p-4 rounded-xl">
+                        <div className="flex items-center justify-center space-x-3 text-xl font-semibold text-foreground">
+                          <Clock className="w-6 h-6 text-primary" />
+                          <span>Analyzing your nutrition goals...</span>
+                        </div>
+                      </div>
+                      <div className="bg-muted/50 p-4 rounded-xl">
+                        <div className="flex items-center justify-center space-x-3 text-xl font-semibold text-foreground">
+                          <MapPin className="w-6 h-6 text-secondary" />
+                          <span>Finding nearby healthy restaurants...</span>
+                        </div>
+                      </div>
+                      <div className="bg-muted/50 p-4 rounded-xl">
+                        <div className="flex items-center justify-center space-x-3 text-xl font-semibold text-foreground">
+                          <ChefHat className="w-6 h-6 text-accent" />
+                          <span>Crafting your 7-day meal plan...</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="w-full max-w-lg mx-auto mt-8">
+                      <div className="w-full bg-muted rounded-full h-4 shadow-inner">
+                        <div 
+                          className="bg-gradient-to-r from-primary via-secondary to-accent h-4 rounded-full animate-pulse shadow-lg"
+                          style={{ 
+                            width: '75%',
+                            animation: 'pulse 2s ease-in-out infinite'
+                          }}
+                        ></div>
+                      </div>
+                      <p className="text-lg font-medium text-foreground mt-4 bg-muted/30 p-2 rounded-lg">
+                        This usually takes 10-15 seconds...
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Card>
             </div>
           </div>
         </section>
