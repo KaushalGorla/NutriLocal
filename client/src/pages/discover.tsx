@@ -185,7 +185,7 @@ export default function Discover() {
                     <CardContent className="p-4 text-center">
                       <DollarSign className="w-6 h-6 mx-auto mb-2 text-primary" />
                       <div className="text-sm text-muted-foreground">Weekly Cost</div>
-                      <div className="font-bold">${weeklyPlan.weeklyTotals.estimatedWeeklyCost.toFixed(2)}</div>
+                      <div className="font-bold">${Number(weeklyPlan.weeklyTotals.estimatedWeeklyCost).toFixed(2)}</div>
                     </CardContent>
                   </Card>
                   <Card>
@@ -209,7 +209,7 @@ export default function Discover() {
                           {dayPlan.day}
                         </span>
                         <Badge variant="outline">
-                          {dayPlan.dailyTotals.calories} cal • {dayPlan.dailyTotals.protein}g protein • ${dayPlan.dailyTotals.estimatedCost.toFixed(2)}
+                          {dayPlan.dailyTotals.calories} cal • {dayPlan.dailyTotals.protein}g protein • ${Number(dayPlan.dailyTotals.estimatedCost).toFixed(2)}
                         </Badge>
                       </CardTitle>
                     </CardHeader>
