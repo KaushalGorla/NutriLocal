@@ -70,7 +70,7 @@ export default function Home() {
                       fontWeight: '900',
                       fontSize: '1.2em',
                       display: 'inline-block',
-                      padding: '6px 16px',
+                      padding: '6px 0px',
                       letterSpacing: '1px'
                     }}
                   >
