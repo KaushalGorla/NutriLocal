@@ -27,7 +27,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
             >
               <div>
-                <h2 className="text-4xl lg:text-6xl font-bold leading-tight text-balance text-foreground" style={{ 
+                <h2 className="text-4xl lg:text-6xl font-bold leading-tight text-balance text-foreground text-center lg:text-left" style={{ 
                   textShadow: '1px 1px 3px rgba(0,0,0,0.2)'
                 }}>
                   Discover{" "}
@@ -53,13 +53,13 @@ export default function Home() {
                     transition={{ 
                       duration: 1.2,
                       color: {
-                        duration: 3,
+                        duration: 5,
                         repeat: Infinity,
                         repeatType: "reverse",
                         ease: "easeInOut"
                       },
                       textShadow: {
-                        duration: 3,
+                        duration: 5,
                         repeat: Infinity,
                         repeatType: "reverse",
                         ease: "easeInOut"
@@ -76,7 +76,7 @@ export default function Home() {
                     Healthy Meals
                   </motion.span>
                   <br />
-                  from Local Restaurants
+                  From Local Restaurants
                 </h2>
                 <p className="text-xl font-medium mt-6 leading-relaxed text-muted-foreground" style={{ 
                   textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
