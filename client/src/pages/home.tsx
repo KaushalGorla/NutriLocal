@@ -130,30 +130,63 @@ export default function Home() {
               transition={{ duration: 0.8 }}
             >
               <div>
-                <h2 className="text-4xl lg:text-6xl font-bold leading-tight text-balance">
+                <h2 className="text-4xl lg:text-6xl font-black leading-tight text-balance" style={{ 
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.8)',
+                  color: '#1a1a1a'
+                }}>
                   Discover{" "}
-                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent" style={{
+                    textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+                  }}>
                     Healthy Meals
                   </span>
                   <br />
                   from Local Restaurants
                 </h2>
-                <p className="text-xl text-muted-foreground mt-6 leading-relaxed">
+                <p className="text-xl font-semibold mt-6 leading-relaxed" style={{ 
+                  textShadow: '1px 1px 3px rgba(0,0,0,0.4), 0 0 8px rgba(255,255,255,0.9)',
+                  color: '#2a2a2a',
+                  backgroundColor: 'rgba(255,255,255,0.3)',
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  backdropFilter: 'blur(2px)'
+                }}>
                   Find affordable, nutritious meals that match your health goals while supporting
                   local businesses in your community.
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-4">
-                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <div className="flex items-center space-x-2 text-sm font-medium" style={{
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                  color: '#1a1a1a',
+                  backgroundColor: 'rgba(255,255,255,0.4)',
+                  padding: '6px 12px',
+                  borderRadius: '20px',
+                  backdropFilter: 'blur(2px)'
+                }}>
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
                   <span>Personalized nutrition matching</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <div className="flex items-center space-x-2 text-sm font-medium" style={{
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                  color: '#1a1a1a',
+                  backgroundColor: 'rgba(255,255,255,0.4)',
+                  padding: '6px 12px',
+                  borderRadius: '20px',
+                  backdropFilter: 'blur(2px)'
+                }}>
                   <div className="w-2 h-2 bg-secondary rounded-full"></div>
                   <span>Support local businesses</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <div className="flex items-center space-x-2 text-sm font-medium" style={{
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                  color: '#1a1a1a',
+                  backgroundColor: 'rgba(255,255,255,0.4)',
+                  padding: '6px 12px',
+                  borderRadius: '20px',
+                  backdropFilter: 'blur(2px)'
+                }}>
                   <div className="w-2 h-2 bg-accent rounded-full"></div>
                   <span>Budget-friendly options</span>
                 </div>
@@ -162,7 +195,11 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   onClick={() => setShowProfileForm(true)}
-                  className="gradient-primary text-primary-foreground px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity shadow-lg"
+                  className="gradient-primary text-primary-foreground px-8 py-4 rounded-xl font-bold hover:opacity-90 transition-opacity shadow-xl"
+                  style={{
+                    textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                    boxShadow: '0 8px 25px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2)'
+                  }}
                   data-testid="button-setup-profile"
                 >
                   <Sparkles className="mr-2" size={20} />
@@ -171,7 +208,14 @@ export default function Home() {
                 <Button
                   onClick={() => scrollToSection("discover")}
                   variant="outline"
-                  className="px-8 py-4 rounded-xl font-semibold"
+                  className="px-8 py-4 rounded-xl font-bold"
+                  style={{
+                    textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
+                    backgroundColor: 'rgba(255,255,255,0.8)',
+                    borderColor: 'rgba(0,0,0,0.3)',
+                    color: '#1a1a1a',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
+                  }}
                   data-testid="button-explore-restaurants"
                 >
                   Explore Restaurants
