@@ -36,7 +36,7 @@ export default function MealCard({ recommendation, onViewDetails, onOrderMeal }:
       whileHover={{ y: -5 }}
       className="group"
     >
-      <Card className="overflow-hidden shadow-lg border border-border hover:shadow-xl transition-all duration-300">
+      <Card className="overflow-hidden shadow-lg border border-border hover:shadow-xl transition-all duration-300 enhanced-card restaurant-card">
         {menuItem.imageUrl && (
           <div className="relative overflow-hidden">
             <img

@@ -148,7 +148,77 @@
 }
 
 .gradient-hero {
-  background: linear-gradient(135deg, hsl(120, 10%, 97%) 0%, hsl(120, 6%, 93%) 50%, hsl(120, 10%, 97%) 100%);
+  background: 
+    radial-gradient(circle at 20% 20%, hsla(159, 84%, 37%, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, hsla(217, 91%, 60%, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, hsla(43, 96%, 56%, 0.03) 0%, transparent 50%),
+    linear-gradient(135deg, hsl(120, 10%, 97%) 0%, hsl(120, 6%, 93%) 50%, hsl(120, 10%, 97%) 100%);
+  position: relative;
+}
+
+.gradient-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 10% 90%, hsla(159, 84%, 37%, 0.1) 0%, transparent 30%),
+    radial-gradient(circle at 90% 10%, hsla(217, 91%, 60%, 0.1) 0%, transparent 30%);
+  pointer-events: none;
+}
+
+/* Section backgrounds with visual enhancement */
+.section-restaurants {
+  background: 
+    radial-gradient(circle at 15% 15%, hsla(159, 84%, 37%, 0.02) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, hsla(217, 91%, 60%, 0.02) 0%, transparent 40%),
+    linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(120, 6%, 98%) 100%);
+}
+
+.section-map {
+  background: 
+    radial-gradient(circle at 30% 70%, hsla(159, 84%, 37%, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, hsla(43, 96%, 56%, 0.02) 0%, transparent 50%),
+    linear-gradient(180deg, hsl(120, 6%, 98%) 0%, hsl(120, 10%, 97%) 100%);
+}
+
+.section-impact {
+  background: 
+    radial-gradient(circle at 25% 25%, hsla(217, 91%, 60%, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, hsla(159, 84%, 37%, 0.02) 0%, transparent 50%),
+    linear-gradient(180deg, hsl(120, 10%, 97%) 0%, hsl(0, 0%, 100%) 100%);
+}
+
+/* Food pattern background */
+.food-pattern {
+  background-image: 
+    radial-gradient(circle at 20px 20px, hsla(159, 84%, 37%, 0.05) 2px, transparent 2px),
+    radial-gradient(circle at 60px 60px, hsla(217, 91%, 60%, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px, 120px 120px;
+}
+
+/* Decorative elements */
+.decorative-shapes {
+  position: relative;
+  overflow: hidden;
+}
+
+.decorative-shapes::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 25% 25%, hsla(159, 84%, 37%, 0.03) 10%, transparent 11%),
+    radial-gradient(circle at 75% 75%, hsla(217, 91%, 60%, 0.03) 10%, transparent 11%),
+    radial-gradient(circle at 50% 10%, hsla(43, 96%, 56%, 0.02) 15%, transparent 16%);
+  background-size: 200px 200px, 300px 300px, 250px 250px;
+  animation: float 20s ease-in-out infinite;
+  pointer-events: none;
 }
 
 /* Custom scrollbar */
@@ -172,8 +242,76 @@
 
 /* Map container */
 .map-container {
-  background: linear-gradient(45deg, #e8f5e8, #e0f2fe);
+  background: 
+    radial-gradient(circle at 30% 30%, hsla(159, 84%, 37%, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, hsla(217, 91%, 60%, 0.1) 0%, transparent 50%),
+    linear-gradient(45deg, #e8f5e8, #e0f2fe);
   border-radius: var(--radius);
+  position: relative;
+}
+
+.map-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 2px 2px, hsla(159, 84%, 37%, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  border-radius: var(--radius);
+  pointer-events: none;
+}
+
+/* Card enhancements */
+.enhanced-card {
+  background: 
+    radial-gradient(circle at 100% 0%, hsla(159, 84%, 37%, 0.02) 0%, transparent 50%),
+    linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(120, 6%, 99%) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.enhanced-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, hsla(159, 84%, 37%, 0.1), hsla(217, 91%, 60%, 0.1));
+  border-radius: calc(var(--radius) + 2px);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.enhanced-card:hover::before {
+  opacity: 1;
+}
+
+/* Restaurant cards with gradient overlay */
+.restaurant-card {
+  background: 
+    radial-gradient(circle at 80% 20%, hsla(159, 84%, 37%, 0.02) 0%, transparent 50%),
+    linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(120, 6%, 99%) 100%);
+  border: 1px solid hsla(159, 84%, 37%, 0.1);
+  transition: all 0.3s ease;
+}
+
+.restaurant-card:hover {
+  border-color: hsla(159, 84%, 37%, 0.2);
+  box-shadow: 0 8px 30px hsla(159, 84%, 37%, 0.1);
+}
+
+/* Header with enhanced background */
+.app-header {
+  background: 
+    radial-gradient(circle at 0% 0%, hsla(159, 84%, 37%, 0.03) 0%, transparent 50%),
+    linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(120, 6%, 98%) 100%);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid hsla(159, 84%, 37%, 0.1);
 }
 
 @layer base {

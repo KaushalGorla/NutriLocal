@@ -57,7 +57,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full app-header">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -111,7 +111,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden gradient-hero py-20 lg:py-32">
+      <section className="relative overflow-hidden gradient-hero decorative-shapes py-20 lg:py-32">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -224,7 +224,7 @@ export default function Home() {
 
       {/* Recommendations Section */}
       {recommendations && recommendations.length > 0 && (
-        <section id="discover" className="py-20">
+        <section id="discover" className="py-20 section-restaurants food-pattern">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
@@ -252,14 +252,14 @@ export default function Home() {
       )}
 
       {/* Map Section */}
-      <section id="map" className="py-20 bg-muted/30">
+      <section id="map" className="py-20 section-map">
         <div className="container mx-auto px-4 lg:px-8">
           <MapSection />
         </div>
       </section>
 
       {/* Impact Dashboard */}
-      <section id="impact" className="py-20">
+      <section id="impact" className="py-20 section-impact">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
