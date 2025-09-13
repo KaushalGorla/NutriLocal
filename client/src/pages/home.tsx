@@ -31,21 +31,43 @@ export default function Home() {
                   textShadow: '1px 1px 3px rgba(0,0,0,0.2)'
                 }}>
                   Discover{" "}
-                  <span className="gradient-primary bg-clip-text text-transparent font-black relative" style={{
-                    fontWeight: '900',
-                    fontSize: '1.2em',
-                    textShadow: '2px 2px 8px rgba(0,0,0,0.4)',
-                    background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    display: 'inline-block',
-                    padding: '4px 8px',
-                    borderRadius: '8px',
-                    boxShadow: '0 0 20px rgba(34, 197, 94, 0.3)'
-                  }}>
+                  <motion.span 
+                    className="font-black relative inline-block"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ 
+                      opacity: 1, 
+                      scale: 1,
+                      textShadow: [
+                        "0px 0px 0px rgba(34, 197, 94, 0.0)",
+                        "0px 0px 20px rgba(34, 197, 94, 0.8)",
+                        "0px 0px 10px rgba(34, 197, 94, 0.6)",
+                        "0px 0px 20px rgba(34, 197, 94, 0.8)"
+                      ]
+                    }}
+                    transition={{ 
+                      duration: 1.2,
+                      textShadow: {
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut"
+                      }
+                    }}
+                    style={{
+                      fontWeight: '900',
+                      fontSize: '1.3em',
+                      color: '#22c55e',
+                      textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 15px rgba(34, 197, 94, 0.7)',
+                      display: 'inline-block',
+                      padding: '4px 12px',
+                      borderRadius: '12px',
+                      backgroundColor: 'rgba(255,255,255,0.9)',
+                      border: '2px solid rgba(34, 197, 94, 0.3)',
+                      boxShadow: '0 0 25px rgba(34, 197, 94, 0.4), inset 0 0 15px rgba(34, 197, 94, 0.1)'
+                    }}
+                  >
                     Healthy Meals
-                  </span>
+                  </motion.span>
                   <br />
                   from Local Restaurants
                 </h2>
