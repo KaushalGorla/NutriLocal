@@ -31,10 +31,18 @@ export default function Home() {
                   textShadow: '1px 1px 3px rgba(0,0,0,0.2)'
                 }}>
                   Discover{" "}
-                  <span className="text-primary font-bold" style={{
-                    fontWeight: '700',
-                    fontSize: '1.05em',
-                    textShadow: '1px 1px 3px rgba(0,0,0,0.3)'
+                  <span className="gradient-primary bg-clip-text text-transparent font-black relative" style={{
+                    fontWeight: '900',
+                    fontSize: '1.2em',
+                    textShadow: '2px 2px 8px rgba(0,0,0,0.4)',
+                    background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    display: 'inline-block',
+                    padding: '4px 8px',
+                    borderRadius: '8px',
+                    boxShadow: '0 0 20px rgba(34, 197, 94, 0.3)'
                   }}>
                     Healthy Meals
                   </span>
