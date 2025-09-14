@@ -4,9 +4,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
@@ -16,7 +29,7 @@ import { Target, Wallet, Shield } from "lucide-react";
 
 const dietaryOptions = [
   "Vegetarian",
-  "Vegan", 
+  "Vegan",
   "Gluten-Free",
   "Keto",
   "Dairy-Free",
@@ -30,7 +43,9 @@ interface ProfileSetupFormProps {
 }
 
 export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
-  const [selectedRestrictions, setSelectedRestrictions] = useState<string[]>([]);
+  const [selectedRestrictions, setSelectedRestrictions] = useState<string[]>(
+    [],
+  );
   const { toast } = useToast();
 
   const form = useForm({
@@ -77,7 +92,9 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
     if (checked) {
       setSelectedRestrictions([...selectedRestrictions, restriction]);
     } else {
-      setSelectedRestrictions(selectedRestrictions.filter(r => r !== restriction));
+      setSelectedRestrictions(
+        selectedRestrictions.filter((r) => r !== restriction),
+      );
     }
   };
 
@@ -112,7 +129,7 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                   <Target className="text-primary mr-3" size={24} />
                   Nutrition Targets
                 </h3>
-                
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
@@ -125,7 +142,9 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                             type="number"
                             placeholder="2000"
                             {...field}
-                            onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                            onChange={(e) =>
+                              field.onChange(parseInt(e.target.value) || 0)
+                            }
                             data-testid="input-daily-calories"
                           />
                         </FormControl>
@@ -133,7 +152,7 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                       </FormItem>
                     )}
                   />
-                  
+
                   <FormField
                     control={form.control}
                     name="proteinTarget"
@@ -145,7 +164,9 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                             type="number"
                             placeholder="120"
                             {...field}
-                            onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                            onChange={(e) =>
+                              field.onChange(parseInt(e.target.value) || 0)
+                            }
                             data-testid="input-protein-target"
                           />
                         </FormControl>
@@ -153,7 +174,7 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                       </FormItem>
                     )}
                   />
-                  
+
                   <FormField
                     control={form.control}
                     name="carbLimit"
@@ -165,7 +186,9 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                             type="number"
                             placeholder="200"
                             {...field}
-                            onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                            onChange={(e) =>
+                              field.onChange(parseInt(e.target.value) || 0)
+                            }
                             data-testid="input-carb-limit"
                           />
                         </FormControl>
@@ -173,7 +196,7 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                       </FormItem>
                     )}
                   />
-                  
+
                   <FormField
                     control={form.control}
                     name="fatTarget"
@@ -185,7 +208,9 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                             type="number"
                             placeholder="65"
                             {...field}
-                            onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                            onChange={(e) =>
+                              field.onChange(parseInt(e.target.value) || 0)
+                            }
                             data-testid="input-fat-target"
                           />
                         </FormControl>
@@ -207,7 +232,7 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                   <Wallet className="text-accent mr-3" size={24} />
                   Budget Preferences
                 </h3>
-                
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
@@ -228,7 +253,7 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                       </FormItem>
                     )}
                   />
-                  
+
                   <FormField
                     control={form.control}
                     name="monthlyBudget"
@@ -262,15 +287,17 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                   <Shield className="text-secondary mr-3" size={24} />
                   Dietary Restrictions & Preferences
                 </h3>
-                
+
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {dietaryOptions.map((option) => (
                     <div key={option} className="flex items-center space-x-3">
                       <Checkbox
                         id={option}
                         checked={selectedRestrictions.includes(option)}
-                        onCheckedChange={(checked) => handleRestrictionChange(option, !!checked)}
-                        data-testid={`checkbox-${option.toLowerCase().replace(/\s+/g, '-')}`}
+                        onCheckedChange={(checked) =>
+                          handleRestrictionChange(option, !!checked)
+                        }
+                        data-testid={`checkbox-${option.toLowerCase().replace(/\s+/g, "-")}`}
                       />
                       <label
                         htmlFor={option}
@@ -295,7 +322,9 @@ export default function ProfileSetupForm({ onSuccess }: ProfileSetupFormProps) {
                   disabled={createProfileMutation.isPending}
                   data-testid="button-find-meals"
                 >
-                  {createProfileMutation.isPending ? "Finding Your Meals..." : "Find My Perfect Meals"}
+                  {createProfileMutation.isPending
+                    ? "Finding Your Meals..."
+                    : "Find My Perfect Meals"}
                 </Button>
               </motion.div>
             </form>
