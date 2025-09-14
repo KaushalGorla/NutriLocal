@@ -6,6 +6,10 @@ import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
 
+// Simple in-memory cache for restaurant recommendations
+const restaurantCache = new Map<string, { data: any; timestamp: number }>();
+const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
+
 interface UserPreferences {
   dietaryGoals: string;
   restrictions: string;
@@ -70,7 +74,7 @@ Document to analyze:
 ${documentText}`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
+      model: "gemini-2.5-flash",
       config: {
         systemInstruction: systemPrompt,
         responseMimeType: "application/json",
@@ -100,9 +104,9 @@ ${documentText}`;
   } catch (error) {
     console.error("Failed to analyze document:", error);
     
-    // If API is overloaded, provide fallback recommendations based on preferences
-    if (error && typeof error === 'object' && 'status' in error && error.status === 503) {
-      console.log("Gemini API overloaded, providing fallback recommendations");
+    // If API is overloaded or rate limited, provide fallback recommendations based on preferences
+    if (error && typeof error === 'object' && 'status' in error && (error.status === 503 || error.status === 429)) {
+      console.log(`Gemini API ${error.status === 429 ? 'rate limited' : 'overloaded'}, providing fallback recommendations`);
       return getFallbackRecommendations(preferences);
     }
     
@@ -212,7 +216,7 @@ Respond with JSON in this exact format:
 }`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
+      model: "gemini-2.5-flash",
       config: {
         systemInstruction: systemPrompt,
         responseMimeType: "application/json",
@@ -240,8 +244,8 @@ Respond with JSON in this exact format:
   } catch (error) {
     console.error("Failed to generate personalized recommendations:", error);
     
-    if (error && typeof error === 'object' && 'status' in error && error.status === 503) {
-      console.log("Gemini API overloaded, providing fallback recommendations");
+    if (error && typeof error === 'object' && 'status' in error && (error.status === 503 || error.status === 429)) {
+      console.log(`Gemini API ${error.status === 429 ? 'rate limited' : 'overloaded'}, providing fallback recommendations`);
     }
     
     return getFallbackRecommendations(userProfile);
@@ -274,6 +278,16 @@ export async function generateRestaurantRecommendations(
     if (!process.env.GEMINI_API_KEY) {
       console.log("GEMINI_API_KEY not configured, using fallback restaurants");
       return getFallbackRestaurants(location);
+    }
+
+    // Create cache key based on location and preferences
+    const cacheKey = `restaurants_${location.lat}_${location.lng}_${JSON.stringify(userPreferences || {})}`;
+    const cached = restaurantCache.get(cacheKey);
+    
+    // Return cached data if it's fresh (within 30 minutes)
+    if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+      console.log("Returning cached restaurant recommendations");
+      return cached.data;
     }
 
     const systemPrompt = `You are a local restaurant expert AI that recommends healthy restaurants and food trucks.
@@ -325,7 +339,7 @@ Respond with JSON in this exact format:
 }`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
+      model: "gemini-2.5-flash",
       config: {
         systemInstruction: systemPrompt,
         responseMimeType: "application/json",
@@ -339,6 +353,8 @@ Respond with JSON in this exact format:
       try {
         const data = JSON.parse(rawJson);
         if (data && Array.isArray(data.restaurants)) {
+          // Cache the successful response
+          restaurantCache.set(cacheKey, { data: data.restaurants, timestamp: Date.now() });
           return data.restaurants;
         } else {
           throw new Error("Invalid response structure from AI model");
@@ -353,8 +369,8 @@ Respond with JSON in this exact format:
   } catch (error) {
     console.error("Failed to generate restaurant recommendations:", error);
     
-    if (error && typeof error === 'object' && 'status' in error && error.status === 503) {
-      console.log("Gemini API overloaded, providing fallback restaurants");
+    if (error && typeof error === 'object' && 'status' in error && (error.status === 503 || error.status === 429)) {
+      console.log(`Gemini API ${error.status === 429 ? 'rate limited' : 'overloaded'}, providing fallback restaurants`);
     }
     
     return getFallbackRestaurants(location);
@@ -611,7 +627,7 @@ Respond with JSON in this exact format:
 }`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
+      model: "gemini-2.5-flash",
       config: {
         systemInstruction: systemPrompt,
         responseMimeType: "application/json",
@@ -639,8 +655,8 @@ Respond with JSON in this exact format:
   } catch (error) {
     console.error("Failed to generate weekly meal plan:", error);
     
-    if (error && typeof error === 'object' && 'status' in error && error.status === 503) {
-      console.log("Gemini API overloaded, providing fallback meal plan");
+    if (error && typeof error === 'object' && 'status' in error && (error.status === 503 || error.status === 429)) {
+      console.log(`Gemini API ${error.status === 429 ? 'rate limited' : 'overloaded'}, providing fallback meal plan`);
     }
     
     return getFallbackWeeklyMealPlan(userProfile, nearbyRestaurants);
